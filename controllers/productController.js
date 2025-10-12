@@ -40,6 +40,40 @@ const productController = {
         }
     },
 
+   update: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const { title, description, price, stock } = req.body;
+
+            if (!title || !description || !price || !stock) {
+            return res.status(400).json({ message: "All fields are required.", responseCode: 400 });
+            }
+
+            const product = await Product.findById(id);
+            if (!product) {
+            return res.status(404).json({ message: "Product not found.", responseCode: 404 });
+            }
+
+            if (req.file) {
+            product.image = req.file.path;
+            }
+
+            product.title = title.trim();
+            product.description = description.trim();
+            product.price = parseFloat(price);
+            product.stock = parseInt(stock);
+
+            await product.save();
+
+            return res.status(200).json({ message: "Product updated successfully.", responseCode: 200 });
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: "Server error. Please try again later." });
+        }
+},
+
+
     delete: async (req, res) => {
         try {
             const id = req.params.id;

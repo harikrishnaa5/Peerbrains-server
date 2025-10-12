@@ -6,7 +6,8 @@ import upload from "../middlewares/multer.js";
 const productRouter = express.Router();
 
 productRouter.get("/", productController.findAll);
-productRouter.post("/create", authMiddleware, roleMiddleware, upload.single("image"), productController.create);
+productRouter.post("/", authMiddleware, roleMiddleware, upload.single("image"), productController.create);
+productRouter.put("/:id", authMiddleware, roleMiddleware, upload.single("image"), productController.update);
 productRouter.delete("/:id", authMiddleware, roleMiddleware, productController.delete);
 
 export default productRouter;

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDb from "./db.js";
 import authRouter from "./routers/authRoute.js";
 import productRouter from "./routers/productRoute.js";
+import userRouter from "./routers/userRoute.js";
 dotenv.config();
 
 const app = express();
@@ -20,6 +21,7 @@ app.use('/uploads', express.static('uploads'));
 // routes
 app.use("/auth", authRouter);
 app.use("/product", productRouter);
+app.use("/user", userRouter);
 
 app.listen(port, () => {
     console.log("Listening at port: " + port);

@@ -3,6 +3,7 @@ import Product from "../models/product.js";
 const productController = {
     findAll: async (req, res) => {
         try {
+            console.log('entering inside products')
             const products = await Product.find().sort({ createdAt: -1 });
             res.status(200).json({ products, responseCode: 200 });
         } catch (error) {
